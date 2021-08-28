@@ -1,0 +1,642 @@
+Middleware admin
+Devops Engineers
+Cloud Engineers
+Site Reliabillity Engineers
+System admins
+Infra Engineers
+InfraStructure:
+.............
+Datacenter
+Storage Components(Objects or Block Storage) disc etc
+Networking Components (DNS)
+Computing Components( CPU , RAM) Baremetals etc
+
+protocal:
+.........
+http: hypertext transfer protocal
+https: hypertext transfer protocal secure
+
+ip: internet protocal
+
+ 256 128 64 32 16 8 4 2 1 256 128 64 32 16 8 4 2 1  
+   0   1  1 0  0 0 0 0 0
+ 
+ 10.
+ 172.
+ 192.
+ 
+  
+  internet to intranet  reverse proxy
+  intranet to internet   forword proxy
+  
+ 
+ 
+ON-PREM:
+.......
+own datacenter
+
+infra+cost
+maintainance is too high
+
+
+project--------->grid----------->substaion-------------->mini substations-------->transformers----->polls----->house
+
+cloud:
+aws cloud provider
+azure cloud provider
+google cloud
+
+Types of clouds:
+................
+public cloud 
+private cloud
+hibrid cloud
+
+
+iaas: infra as a service
+paas: ploatform as a service
+saas: software as a service
+
+aws:
+.....
+ec2
+s3
+ebs
+loadbalancers
+vpc
+IAM
+Auto scaling
+RDS
+ROUTE53
+ecs
+cloud watch
+lambda(Depends)
+
+Devops:
+.......
+git(scm)
+jenkins(cicd)
+nexus(Artifactory)
+sonarqube(Code Quality)
+tomcat(Application server)
+Ansible(configuration management)
+Docker
+Kubernetes
+Nagios
+Terraform
+
+
+in aws we have regions and zones
+
+mumbai region: ap-south
+az1: mumbai ap-south-1a
+az2: chennai ap-south-1b
+az3: hyderabad ap-south-1c
+
+ec2: elastic compute cloud
+
+instances
+
+OnDemand Instance : 100
+Reserved Instance : 30
+Spot Instance : 10
+
+
+AMI: Amazon Machine Image
+
+
+Instance: zone base
+
+
+protocals:
+...........
+ssh: secure shell
+port : 22
+http: 80
+https: 443
+
+Gitbash
+mobaxtreaam
+putty
+
+
+Amazon linux: ec2-user
+ubuntu: ubuntu
+Redhat linux: ec2-user
+centos: centos
+
+
+
+ssh -i <pem key> <user>@ip
+
+ 
+Amazon linux, centos, Redhat: sudo yum update -y
+
+
+To create an empty file 
+
+touch <filename>
+
+To insert content in a file
+
+echo " <content>" > <filename>
+
+To read the content in a file without opening  a file
+
+cat <filename>
+
+
+Apache: It is an webserver
+
+Amazon-linux centos , Redhat:
+
+sudo yum install httpd -y
+
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl restart httpd
+
+
+ubuntu:
+
+sudo apt-get install apache2
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+
+/var/www/html/
+
+
+vi /etc/httpd/conf/httpd.conf
+
+
+
+Task:
+
+Install Apache in linux server
+host home.html
+
+change the port to 81
+
+/: root
+
+
+
+bin -> usr/bin
+dr-xr-xr-x   4 root root 4096 Jul 20 02:11 boot
+drwxr-xr-x  15 root root 2820 Jul 19 02:31 dev
+drwxr-xr-x  81 root root 8192 Jul 20 02:22 etc
+drwxr-xr-x   3 root root   22 Jul 19 02:31 home
+lrwxrwxrwx   1 root root    7 Jul  6 17:24 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Jul  6 17:24 lib64 -> usr/lib64
+drwxr-xr-x   2 root root    6 Jul  6 17:24 local
+drwxr-xr-x   2 root root    6 Apr  9  2019 media
+drwxr-xr-x   2 root root    6 Apr  9  2019 mnt
+drwxr-xr-x   4 root root   27 Jul  6 17:25 opt
+dr-xr-xr-x 107 root root    0 Jul 19 02:31 proc
+dr-xr-x---   3 root root  124 Jul 20 04:53 root
+drwxr-xr-x  29 root root  980 Jul 20 15:41 run
+lrwxrwxrwx   1 root root    8 Jul  6 17:24 sbin -> usr/sbin
+drwxr-xr-x   2 root root    6 Apr  9  2019 srv
+dr-xr-xr-x  13 root root    0 Jul 19 02:31 sys
+drwxrwxrwt   9 root root  249 Jul 20 15:41 tmp
+drwxr-xr-x  13 root root  155 Jul  6 17:24 usr
+drwxr-xr-x  20 root root  280 Jul 20 02:22 var
+
+
+
+drwxrwxr-x 2 ec2-user ec2-user  6 Jul 20 02:12 kiran
+-rw-rw-r-- 1 ec2-user ec2-user 77 Jul 20 02:19 sample.txt
+rwx
+--- --- ---
+
+
+
+- rw- rw- r--
+
+chmod -R 756 <filename>
+
+chown <user>:<group> <file or folder>
+
+
+Task:
+......
+
+create a file and folders
+user sudo for some files or folders 
+without sudo create some files or folders
+
+try to change the permissions to files and folders
+
+
+usercreation:
+..............
+
+
+
+
+scp -i <your pem key> -r <Another instance pem key> <user>@ip:/tmp
+scp -i <pem> -r <file> user@ip:/tmp
+
+
+
+RDP: Remote Desktop
+port:3389
+
+
+Task:
+Launch one Windows instance
+Launch one linux Instance
+
+Login to windows
+copy your gitbash and linux serevr pem key
+
+Login to linux instance through windows
+
+
+
+IAM: Identity Access and management
+
+
+VPC: Virtual private cloud
+
+10
+192
+172
+
+cidr: classless inter-domain routing
+4,294,967,296
+
+10.x.x.x
+172.x.x.x
+192.x.x.x
+
+2^32-n
+
+65000
+
+2^32-20
+
+
+2^32-10
+
+2^32-16
+
+2^16
+
+2^32-24
+2^8
+
+
+10.0.0.0/16 = 65.xxx
+
+10.0.0.0/
+
+192.168.0.0
+
+
+
+10.0.0.0-255
+
+10.0.1.0-255
+
+
+IGW: Internet Gateway
+NAT Gateway
+
+10.
+192.
+172.
+
+
+
+
+10.0.2.0/24  256
+
+
+s3:
+....
+
+simple  storage service
+
+
+iam role:
+........
+
+establish the communication between two services follow below any one method
+
+case1: use access and secret key
+case2: use iam roles
+
+
+s3 lifecycle:
+..............
+storage classes:
+...............
+standard
+infrequent
+glasier
+
+EBS: Elastic Block storage:
+...........................
+two types of categories
+SSD: solid state drive
+HDD: Hard Disk Drive
+
+Ebs volume type:
+..............
+General Purpose SSD(gp2) volumes
+Provisioned IOPS SSD(io1) Volumes
+Throughput Optimized HDD(st1) Volumes
+cold HDD(sc1) Volumes
+
+Dev Stg pre-prod production
+
+
+LoadBalancers:
+..............
+classic Loadbalancer
+Application LoadBalancers
+Network LoadBalancers
+
+osi models(Open system interconnection Model)
+
+
+Physical
+Data Layer
+Network Layer
+Transport Layer
+session Layer
+Presentation Layer
+Application Layer
+
+
+
+#! /bin/bash
+sudo yum update -y
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+AutoScaling:
+...........
+Horizontal scaling
+vetrical scaling
+
+SDLC:
+......
+DevOps
+Dev+Ops
+
+software Development life cycle
+
+waterfall model
+itterative model
+squiral model
+incremental model 
+Agile
+
+
+sprint planning  backlog story      14
+
+
+scram calls:
+............
+DEV STG UAT PROD
+
+
+
+SCM: git
+CICD: jenkins,maven, nexus, sonarqube
+tomcat
+CONFIGURATION MANAGEMENT: Ansible
+containarization: docker 
+monitoring: Nagios
+
+git 
+jenkins
+maven
+nexus
+sonarqube
+tomcat 
+Ansible
+Docker 
+Nagios
+
+
+scm: source code management
+...........................
+what is git? distributed version control system
+what is svn? central version control system
+difference between svn and git
+Git Archaticture
+Install Git in our local
+create an github account
+create an empty repository
+
+
+how to pull the code?
+what are merge conficts?
+How to resolve merge conflicts?
+
+what is git branch?
+how to list branches in local? git branch --list
+how to list branches in remote? git branch -a
+how to cretae branch in local? 
+how to create branch in central?
+how to push the code to perticular branch in remote? 
+hot to delete the branch in local and central?
+
+
+What is tag?
+when we wii use tags?
+how many types of tags ?
+what is lightweighted tag ? How to create it?
+what is annotated tag? How to create it?
+How to create a tag to older commits?
+How to cherck a perticular tag?
+How to list all tags?
+How to push tags to remote repo?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
