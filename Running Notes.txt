@@ -328,6 +328,20 @@ establish the communication between two services follow below any one method
 case1: use access and secret key
 case2: use iam roles
 
+/bin/--------all binaries--all normal user commands
+/home---------noraml users home directories
+/tmp----------temporary directory
+/sbin--------system binaries --- mostly will be used by root user or sudoer user 
+/usr--------like program files , all the default softwares will be instaled
+/var--------all the os level logs or os level services logs
+/opt-------optional packages
+/dev --------devices like hard discs
+/mnt---------temporary mount
+/boot -------os boot images
+/media -------pendrives or external hard disc
+/etc-----------os configuration files
+/root -----------root user home directory
+/proc ------- runtime information 
 
 s3 lifecycle:
 ..............
@@ -461,182 +475,167 @@ How to push tags to remote repo?
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+git reset
+
+soft
+hard
+mixed
+git revert
+
+
+
+jenkins:
+........
+jenkins is an cicd tool
+
+prereq:
+......
+java
+2gb ram
+
+
+
+how many types we can install jenkins?
+
+rpm packages
+war file
+
+
+port:8080
+ yum list | grep -i java-11
+ 
+ 
+ 
+ 
+ jenkins Home directory
+ /var/lib/jenkins
+ 
+ 
+ java Application:
+ ................
+ 
+ Developer pushed the code to Github
+ 
+ Pull the code from github
+ 
+ build the code ------> javac HelloWorld.java
+ 
+ run the java code------> java HelloWorld
+ 
+ 
+ 
+ 
+ what is build tools?
+ what is maven
+ what is the difference between Ant and Maven?
+ Maven Lifecycle
+ create maven repo in local
+ 
+ 
+ Ant 
+ Maven
+Gradle
+ 
+
+ Build.xml
+ pom.xml
+ 
+ 
+ No life cylce for Ant
+ Maven Having life cycle
+ 
+ 
+ 
+ 
+ Lifecycle of maven
+ ....................
+ compile
+ test
+ package
+ verify
+ install
+ deploy
+ 
+ 
+ default clean
+ 
+ mvn compile
+ mvn package 
+ mvn install 
+ 
+ 
+ war/jar
+ 
+ targets
+ 
+ Prereq maven installation:
+ ..........................
+ 
+ Java
+ 
+ username with password
+ username with keys
+ 
+  sudo su - jenkins -s /bin/bash
+ 
+ 
+ build triggers
+ ..............
+ pollscm
+ build periodically
+ webhooks
+ 
+ 
+ nexus:
+ .....
+ install nexus
+ 1) install java
+2) download nexus binary
+3) untar nexus binary
+4) start nexus
+
+
+
+
+create repo in nexus
+....................
+go to repository-----> create new repository-------> maven hosted------> provide repo name
+
+
+plugins:
+.......
+nexus platform
+nexus artifactory uploader
+
+jenkins Pipeline:
+.................
+scripted pileline
+Declarative Pipeline
+
+
+
+pipeline{
+ agent {'label: <slave>'}
+ stages{
+  stage('checkout'){
+   steps{
+    #logic
+     }
+	}
+	stage('build')
+	 steps{
+	   #logic
+	   }
+	  }
+         
+		 
+		 
+		 
+install Ansible:
+..............
+pre-req 
+take mininum t2.medium
+
+sudo yum update -y
+sudo yum install epel-release
+sudo yum install ansible -y
