@@ -639,3 +639,134 @@ take mininum t2.medium
 sudo yum update -y
 sudo yum install epel-release
 sudo yum install ansible -y
+
+
+copy
+file
+template
+inline
+shell
+yum
+group
+command
+ping
+
+ansible -i myinventory -l nodes -m command -a "mkdir learndevops"
+   72  ansible all -i myinventory -l nodes -m command -a "mkdir learndevops"
+   73  ansible all -i myinventory -l nodes -m command -a "mkdir /opt/learndevops"
+   74  clear
+   75  ansible all -i myinventory -l nodes -m command -a "mkdir /opt/learndevops" --become
+   76  ansible all -i myinventory -l nodes -m command -a "ls -l"
+   77  ansible all -i myinventory -l nodes -m command -a "ls -l /opt"
+   78  ll
+   79  cd /tmp/
+   80  l
+   81  ll
+   82  vi sample.txt
+   83  ll
+   84  cd ~
+   85  ll
+   86  clear
+   87  cd /tmp/
+   88  ll
+   89  sudo chmod 400 windows.pem
+   90  ll
+   91  cd !
+   92  cd ~
+   93  ll
+   94  vi myinventory
+   95  ansible all -i myinventory -l testservers -m command -a "pwd"
+   96  clear
+   97  ansible all -i myinventory -l testservers -m command -a "pwd" --ansble_user=ec2-user
+   98  ansible all -i myinventory -l testservers -m command -a "pwd" --ansble_user=ec2-user --prvate-key=/tmp/windows.pem
+   99  ansible all -i myinventory -l testservers -m command -a "pwd" --ansble_user=ec2-user --private-key=/tmp/windows.pem
+  100  ansible all -i myinventory -l testservers -m command -a "pwd" --ansible_user=ec2-user --private-key=/tmp/windows.pem
+  101  vi myinventory
+  102  ansible all -i myinventory -l testservers -m command -a "pwd" --private-key=/tmp/windows.pem
+  103  vi myinventory
+  104  ansible all -i myinventory -l testservers -m command -a "pwd" --private-key=/tmp/windows.pem
+  105  vi myinventory
+  106  ansible all -i myinventory -l testservers -m command -a "pwd" --private-key=/tmp/windows.pem
+  107  ansible all -i myinventory -l testservers -m command -a "mkdir learndevops" --private-key=/tmp/windows.pem
+  108  ansible all -i myinventory -l testservers -m command -a "mkdir /opt/learndevops" --private-key=/tmp/windows.pem
+  109  ansible all -i myinventory -l testservers -m command -a "mkdir /opt/learndevops" --private-key=/tmp/windows.pem --become
+  113  ansible all -i myinventory -l nodes -m copy -a "src=/tmp/sample.txt dest=/opt/learndevops"
+  114  ansible all -i myinventory -l nodes -m copy -a "src=/tmp/sample.txt dest=/opt/learndevops" --become
+  115  ansible all -i myinventory -l testservers -m copy -a "src=/tmp/sample.txt dest=/opt/learndevops" --become
+  116  ansible all -i myinventory -l testservers -m copy -a "src=/tmp/sample.txt dest=/opt/learndevops" --private-key=/tmp/windows.pem --become
+  117  ansible all -i myinventory -l testservers -m command -a "cat /opt/learndevops/sample.txt --private-key=/tmp/windows.pem --become
+  118  ansible all -i myinventory -l testservers -m command -a "cat /opt/learndevops/sample.txt" --private-key=/tmp/windows.pem --become
+  119  ansible all -i myinventory -l testservers -m shell -a "cat /opt/learndevops/sample.txt" --private-key=/tmp/windows.pem --become
+  120  ansible all -i myinventory -l testservers -m command -a "cat /opt/learndevops/sample.txt | grep - sample" --private-key=/tmp/windows.pem --become
+  121  ansible all -i myinventory -l testservers -m command -a "cat /opt/learndevops/sample.txt | grep -i sample" --private-key=/tmp/windows.pem --become
+  122  ansible all -i myinventory -l testservers -m shell -a "cat /opt/learndevops/sample.txt | grep -i sample" --private-key=/tmp/windows.pem --become
+  123  ansible all -i myinventory -l testservers -m shell -a "cat /opt/learndevops/sample.txt | grep -i sample | wc -l" --private-key=/tmp/windows.pem --become.
+
+
+file
+
+
+mkdir 
+
+touch <path><file name>
+
+
+playbooks
+..........
+---
+- hosts: all
+  tasks:
+  - name: create a file
+    file:
+	  path: "/opt/learndevops/demo.txt"
+	  state: touch
+
+ansible all -i myinventory -l nodes -m yum -a "name: httpd state: installed"
+
+ansible all -i myinventory -l nodes -m lineinfile -a "dest=/home/bhanu/learndevops/sample.txt line="this is test"
+
+- name: add several users
+  user: name={{ item.name }} state=present groups={{ item.groups }}
+  with_items:
+    - { name: 'testuser1', groups: 'wheel' }
+    - { name: 'testuser2', groups: 'root' }
+
+
+
+- name: Install the required rpms
+  yum: name={{ item }} state=latest
+  with_items:
+      - wget
+      - git
+      - net-tools
+      - bind-utils
+      - iptables-services
+      - bridge-utils
+      - bash-completion
+      - docker
+
+
+
+
+---
+- hosts: all
+  tasks:
+  - name: installing multiple yum packages
+    yum:
+      name:{{ item }}
+      state:installed
+    with_items:
+      - git
+      - unzip
+      - wget
+      - httpd
+........................................................................................
+task:
+take 2 servers 
+Add them to ansible inventory
+write a playbook to install tomcat 
+
+1) install wget, java 
+2) downlaod the tomcat package from the internet(tomcat officvial site)
+3) mv the package to /opt/tomcat
+4) start the tomcat
