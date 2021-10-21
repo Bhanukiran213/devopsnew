@@ -770,3 +770,265 @@ write a playbook to install tomcat
 2) downlaod the tomcat package from the internet(tomcat officvial site)
 3) mv the package to /opt/tomcat
 4) start the tomcat
+
+converting the shell commands to ansible playbooks
+using varables ansible Playbook?
+
+
+install java:
+yum install openjdk-1.8
+download the tomcat package from the internet
+unzip tomcat pacage
+rename the file
+change the permssions to tomcat
+start the serivce
+
+
+https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.53/bin/apache-tomcat-9.0.53.tar.gz
+https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.71/bin/apache-tomcat-8.5.71.tar.gz
+
+
+docker:
+.......
+
+what is container?
+
+why it is required?
+
+how it is helpful?
+
+
+docker -v
+docker info
+docker images
+docker search images
+docker pull <image Name>
+docker run -it --name <name> <image>
+docker run -d -p 80:80 --name <name> <image name>
+docker logs <container id>
+docker exec -it <container id> bash
+docker ps 
+docker pa -a
+docker ps -l
+docker ps -q
+docker image rmi <image name>
+docker stop <container id>
+docker kill <container id>
+
+
+
+
+
+
+
+FROM centos:latest
+MAINTAINER Bhanukiran
+RUN yum -y install httpd
+COPY index.html /var/www/html/
+CMD [“/usr/sbin/httpd”, “-D”, “FOREGROUND”]
+EXPOSE 80
+
+
+
+FROM centos:7
+MAINTAINER Bhanukiran
+RUN yum install httpd -y
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND”]
+EXPOSE 80
+
+
+
+
+' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FROM centos
+
+MAINTAINER bhanukiran
+
+RUN mkdir /opt/tomcat/
+
+WORKDIR /opt/tomcat
+RUN curl -O https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.tar.gz
+RUN tar xvfz apache*.tar.gz
+RUN mv apache-tomcat-8.5.40/* /opt/tomcat/.
+RUN yum -y install java
+RUN java -version
+
+WORKDIR /opt/tomcat/webapps
+#RUN curl -O -L https://github.com/AKSarav/SampleWebApp/raw/master/dist/SampleWebApp.war
+
+EXPOSE 8080
+
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+
+
+
+FROM bhanukiran213/mytomcat:latest
+
+
+
+FROM tomcat:latest
+
+LABEL maintainer="Bhanukiran"
+
+ADD ./target/LoginWebApp-1.war /usr/local/tomcat/webapps/
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
+
+
+
+
+
+FROM centos:7
+MAINTAINER bhanukiran
+RUN yum install java -y
+RUN mkdir /opt/tomcat
+WORKDIR /opt/tomcat
+RUN curl -O https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.72/bin/apache-tomcat-8.5.72.tar.gz
+RUN tar-xvzf apache-tomcat-8.5.72.tar.gz
+RUN mv apache-tomcat-8.5.72/* /opt/tomcat/.
+EXPOSE 8080
+CMD["/opt/tomcat/bin/catalina.sh", "run"]
+
+
+sonarQube Installation:
+......................
+Source: https://docs.sonarqube.org/latest/requirements/requirements/
+
+amazon-linux-extras list
+amazon-linux-extras install java-openjdk11
+
+SonarQube cannot be run as root on Unix-based systems, so create a dedicated user account for SonarQube if necessary.
+
+Installation steps
+Download SonarQube latest verions on to EC2 instace
+cd /opt  
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-x.x.zip  
+https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.2.46101.zip
+
+extract packages
+
+unzip /opt/sonarqube-x.x.zip
+
+Change ownershipt to the user and Switch to Linux binaries directory to start service
+
+chown -R <sonar_user>:<sonar_user_group> /opt/sonarqube-x.x  
+cd /opt/sonarqube-x.x/bin/linux-x86-64   
+./sonar.sh start
+
+onnect to the SonarQube server through the browser. It uses port 9000.
+Note: Port should be opened in the Security group
+
+http://<Public-IP>:9000
+
+
+
+
+On Sonarqube server
+Generate a sonarqube token to authenticate from Jenkins
+
+
+
+On Jenkins server
+Install Sonarqube plugin
+Configure Sonarqube credentials
+Add Sonarqube to jenkins "configure system"
+Install SonarScanner
+Run Pipeline job
+
+
+
+
+stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv('sonarqube-8.9') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+    }
+        }
+        }
+       
+    }
+}
+
+
+
+
+stage('Publish image to Docker Hub') {
+          
+            steps {
+        withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
+          sh  'docker push bhanukiran213/samplewebapp:latest'
+        //  sh  'docker push bhanukiran/samplewebapp:$BUILD_NUMBER' 
+        }
+                  
+          }
+        }
+		
+
+
+
+
+
+
+pipeline {
+   agent {
+  label 'master'
+}
+  environment {
+     PATH = "/opt/maven/bin:$PATH"
+     }
+   stages {
+        stage('checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Bhanukiran213/hello-world-war.git']]])
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage('image'){
+            steps{
+            sh 'docker build -t bhanukiran213/tomcat .'
+        }
+       }
+        stage('Publish image to Docker Hub') {
+            steps {
+                script{
+        withDockerRegistry([ credentialsId: "Dockerhub", url: "" ]) {
+          sh  'docker push bhanukiran213/mytomcat:$BUILD_NUMBER'
+        //  sh  'docker push bhanukiran/samplewebapp:$BUILD_NUMBER' 
+        }
+                  
+          }
+            } 
+    }
+   } 
+}
+
+usermod -a -G docker jenkins
